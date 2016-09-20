@@ -3,12 +3,10 @@
 int main(void) {
 	double x, y, z, valSum, largest;
 	printf("세 실수를 과학적 표기법으로 입력해주세요. 구분은 ,(콤마)로 합니다. ");
-	//lf로도 받을 수 있지만, 과학적 표기법으로 확실히 받는 것이기 때문에 le로 수정합니다.
-	scanf("%le, %le, %le", &x, &y, &z);
+	scanf("%lf, %lf, %lf", &x, &y, &z);
 	valSum = x + y + z;
 	largest = (z > (x > y ? x : y) ? z : (x > y ? x : y));
 	printf("10진법 표기법으로 표현하면, 합 = %lf, 최대값은 %lf입니다.\n", valSum, largest);
-	//e로도 출력할 수 있지만, double이기 때문에 le로 수정합니다.
-	printf("과학적 표기법으로 표현하면, 합 = %le, 최대값은 %le입니다.  \n", valSum, largest);
+	printf("과학적 표기법으로 표현하면, 합 = %e, 최대값은 %e입니다.  \n", valSum, largest);
 	return 0;
 }
