@@ -13,6 +13,19 @@ int isschar(char input_char){
 	return 0;
 }
 
+int issame_more_than_5(char *input_1, char *input_2){
+	int count = 0;
+	for(int i=0; input_1[i]; i++) {
+		for(int j=0; input_2[j]; j++) {
+			if (input_1[i+j] == input_2[j]) count++;
+			else count = 0;
+			
+			if (count > 4) return 1;
+		}
+	}
+	return 0;
+}
+
 int main(void) {
 	char input[100] = { 0 }, password[100] = { 0 };
 	while (1) {
