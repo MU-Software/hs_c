@@ -38,12 +38,6 @@ int main(void) {
 		
 		//연산
 		for (count; input[count]; count++){ //여기서 비밀번호의 글자 개수도 세줍니다.
-			/*최소한 대문자, 소문자, 숫자, 특정한 특수문자(!, @, #, $, ?) 1개씩은 들어가도록.
-			 *1, 2, 4, 8은 0b0001, 0b0010, 0b0100, 0b1000으로,
-			 *활성화된 이진수로 뭐가 참이고 거짓인지 알 수 있습니다.
-			 *뭐, 꼼수긴 하지만요;
-			 *배열을 써도 괜찮긴 한데 메모리 절약을 위해서!(...)
-			 */
 			     if (isupper(input[count]) && !is_ok[0]) is_ok[0] = 1;//대문자인지?
 			else if (islower(input[count]) && !is_ok[1]) is_ok[1] = 1;//대문자가 아니면 소문자?
 			else if (isdigit(input[count]) && !is_ok[2]) is_ok[2] = 1;//소문자도 아니면 숫자?
