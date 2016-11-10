@@ -5,11 +5,11 @@
 
 //가능한 특수 문자인지를 판단해주는 함수
 int isschar(char input_char){
-	if (input_char == 33) return 1;//!
-	if (input_char == 35) return 1;//#
-	if (input_char == 36) return 1;//$
-	if (input_char == 63) return 1;//?
-	if (input_char == 64) return 1;//@
+	if (input_char == '!') return 1;//!
+	if (input_char == '#') return 1;//#
+	if (input_char == '$') return 1;//$
+	if (input_char == '?') return 1;//?
+	if (input_char == '@') return 1;//@
 	return 0;
 }
 
@@ -19,7 +19,7 @@ int issame_more_than_5(char *input_1, char *input_2){
 		for(int j=0; input_2[j]; j++) {
 			if (input_1[i+j] == input_2[j]) count++;
 			else count = 0;
-
+			
 			if (count > 4) return 1;
 		}
 	}
@@ -29,6 +29,7 @@ int issame_more_than_5(char *input_1, char *input_2){
 int main(void) {
 	char input[100] = { 0 }, password[100] = { 0 };
 	while (1) {
+		char is_ok[4] = {0};
 		int is_str_ok = 0, count = 0;
 		//암호 문자열을 저장할 공간을 NULL로 초기화해주고,
 		for (int n = 0; n < 100; n++) input[n] = 0;
@@ -43,20 +44,18 @@ int main(void) {
 			 *뭐, 꼼수긴 하지만요;
 			 *배열을 써도 괜찮긴 한데 메모리 절약을 위해서!(...)
 			 */
-			     if (isupper(input[count]) && !(is_str_ok & 1)) is_str_ok += 1;//대문자인지?
-			else if (islower(input[count]) && !(is_str_ok & 2)) is_str_ok += 2;//대문자가 아니면 소문자?
-			else if (isdigit(input[count]) && !(is_str_ok & 4)) is_str_ok += 4;//소문자도 아니면 숫자?
-			else if (isschar(input[count]) && !(is_str_ok & 8)) is_str_ok += 8;//저것전부 아니면 허용된 특수문자?
+			     if (isupper(input[count]) && !is_ok[0]) is_ok[0] = 1;//대문자인지?
+			else if (islower(input[count]) && !is_ok[1]) is_ok[1] = 1;//대문자가 아니면 소문자?
+			else if (isdigit(input[count]) && !is_ok[2]) is_ok[2] = 1;//소문자도 아니면 숫자?
+			else if (isschar(input[count]) && !is_ok[3]) is_ok[3] = 1;//저것전부 아니면 허용된 특수문자?
 		}
 		if (count < 9) { printf("비밀번호가 너무 짧습니다. 최소 9자 이상 사용해 주십시오.\n"); continue; }//9글자 이상인지?
 		else if (is_str_ok != 15) {//어라, 필요한 글자가 없다?
-			if (!(is_str_ok & 1)) { printf("대문자를 1개 이상 사용해 주십시오.\n"); continue; }
-			if (!(is_str_ok & 2)) { printf("소문자를 1개 이상 사용해 주십시오.\n"); continue; }
-			if (!(is_str_ok & 4)) { printf("숫자를 1개 이상 사용해 주십시오.\n"); continue; }
-			if (!(is_str_ok & 8)) { printf("특수문자를 1개 이상 사용해 주십시오.\n"); continue; }
-		} //아이디와 생일의 문자 5개 이상 겹치는지?
-		else if (issame_more_than_5(input, birthday)) { printf("생일 날짜와 문자 5개이상 겹칩니다.\n"); continue; }
-		else if (issame_more_than_5(input, id)) { printf("아이디와 문자 5개이상 겹칩니다.\n"); continue; }
+			if (!is_ok[0]) { printf("대문자를 1개 이상 사용해 주십시오.\n"); continue; }
+			if (!is_ok[1]) { printf("소문자를 1개 이상 사용해 주십시오.\n"); continue; }
+			if (!is_ok[2]) { printf("숫자를 1개 이상 사용해 주십시오.\n"); continue; }
+			if (!is_ok[3]) { printf("특수문자를 1개 이상 사용해 주십시오.\n"); continue; }
+		}
 		else break;//모든 조건에 맞으므로 While 탈출!
 		
 	}
